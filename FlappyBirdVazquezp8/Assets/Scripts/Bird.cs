@@ -6,13 +6,17 @@ public class Bird : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public float upforce = 200;
+    public float upforce = 200f;
 
     private bool isDead = false;
     private Rigidbody2D rb2d;
+    private Animator anim;
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
@@ -24,6 +28,7 @@ public class Bird : MonoBehaviour
             {
                 rb2d.velocity = Vector2.zero;
                 rb2d.AddForce(new Vector2(0, upforce));
+                anim.SetTrigger("Flap");
             }
         }
 
@@ -32,5 +37,6 @@ public class Bird : MonoBehaviour
     void OnCollisionEnter2D()
     {
     isDead = true;
+        anim.SetTrigger("Die");
     }
 }
